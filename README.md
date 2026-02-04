@@ -1,24 +1,62 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# Chrome WhatsApp Extension
 
-## Getting Started
+## How to Install (Manual)
 
-First, run the development server:
+This guide explains how to manually load the extension into Google Chrome using the production build folder (`build/chrome-mv3-prod`).
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+### Prerequisites
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+- Google Chrome browser installed
+- The project folder containing `build/chrome-mv3-prod`.
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+### Step-by-Step Instructions
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+1. **Open Extension Management Page**
 
-## Making production build
+   - Open Google Chrome.
+   - Type `chrome://extensions` in the address bar and press **Enter**.
+   - Alternatively, click the three dots menu (top right) $\to$ **Extensions** $\to$ **Manage Extensions**.
 
-Run the following:
+   > ![Open Extensions Menu](public/step_1.png) > _Instructions: Click the menu to navigate to Extensions._
+
+2. **Enable Developer Mode**
+
+   - In the top right corner of the Extensions page, find the **Developer mode** toggle switch.
+   - Turn it **ON** to reveal the developer options.
+
+   > ![Enable Developer Mode](public/step_2.png) > _Instructions: Toggle the switch to position ON._
+
+3. **Load the Extension**
+
+   - Click on the **Load unpacked** button that appears in the top left toolbar.
+
+   > ![Click Load Unpacked](public/step_3.png) > _Instructions: Click the "Load unpacked" button._
+
+4. **Select the Build Folder**
+
+   - A file explorer window will open.
+   - Navigate to the root of your project directory.
+   - Select the **`build/chrome-mv3-prod`** folder.
+   - Click **Select Folder** (or **Open**).
+
+   > ![Select Build Folder](public/step_4.png) > _Instructions: Ensure you select the 'chrome-mv3-prod' folder inside 'build'._
+
+5. **Verify Installation**
+
+   - The extension should now appear in the list of installed extensions.
+   - Ensure the toggle on the extension card is set to **ON**.
+
+   > ![Installation Verified](public/step_5.png) > _Instructions: confirm the extension is loaded and active._
+
+---
+
+## Development Info
+
+This is a [Plasmo extension](https://docs.plasmo.com/) project.
+
+### Building for Production
+
+To generate the `build/chrome-mv3-prod` folder used in the steps above, run:
 
 ```bash
 pnpm build
@@ -26,8 +64,12 @@ pnpm build
 npm run build
 ```
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+### Running in Development Mode
 
-## Submit to the webstores
+To run the dev server with hot-reloading:
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+```bash
+pnpm dev
+# or
+npm run dev
+```
