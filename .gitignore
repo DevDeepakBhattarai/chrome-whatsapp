@@ -1,0 +1,5 @@
+node_modules
+.plasmo
+.env
+.DS_Store
+coverage
