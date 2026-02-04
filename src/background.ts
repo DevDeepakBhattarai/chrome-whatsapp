@@ -9,6 +9,11 @@ const MENU_ROOT_ID = "whatsapp-send-root"
 const MENU_MANAGE_ID = "whatsapp-manage"
 const MENU_EMPTY_ID = "whatsapp-empty"
 const MENU_CONTACT_PREFIX = "whatsapp-contact-"
+const MENU_CONTEXTS: chrome.contextMenus.ContextType[] = [
+  "selection",
+  "page",
+  "editable"
+]
 
 const removeAllContextMenus = () =>
   new Promise<void>((resolve) => {
@@ -27,7 +32,7 @@ const createContextMenus = async () => {
   chrome.contextMenus.create({
     id: MENU_ROOT_ID,
     title: "Send to WhatsApp",
-    contexts: ["selection"]
+    contexts: MENU_CONTEXTS
   })
 
   const contacts = await readContacts()
@@ -38,7 +43,7 @@ const createContextMenus = async () => {
       parentId: MENU_ROOT_ID,
       title: "No contacts yet",
       enabled: false,
-      contexts: ["selection"]
+      contexts: MENU_CONTEXTS
     })
   } else {
     contacts.forEach((contact) => {
@@ -46,7 +51,7 @@ const createContextMenus = async () => {
         id: `${MENU_CONTACT_PREFIX}${contact.id}`,
         parentId: MENU_ROOT_ID,
         title: contact.name,
-        contexts: ["selection"]
+        contexts: MENU_CONTEXTS
       })
     })
   }
@@ -55,7 +60,7 @@ const createContextMenus = async () => {
     id: MENU_MANAGE_ID,
     parentId: MENU_ROOT_ID,
     title: "Manage contacts...",
-    contexts: ["selection"]
+    contexts: MENU_CONTEXTS
   })
 }
 
@@ -102,5 +107,6 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   if (!contact) return
 
   const selectedText = info.selectionText?.trim() ?? ""
-  openWhatsAppMessage(contact, selectedText)
+  const message = selectedText || info.pageUrl || ""
+  openWhatsAppMessage(contact, message)
 })
